@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
+using Sender;
 namespace SenderTests
 {
     public class MockConsoleOutput : ISenderOutput
