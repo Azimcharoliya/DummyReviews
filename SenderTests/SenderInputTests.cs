@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Xunit;
-using Sender;
 
 
 namespace SenderTests
@@ -22,6 +22,13 @@ namespace SenderTests
     public class SenderInputTests
     {
         [Fact]
+        public void TestExpectingValidFilepathAssignmentToClassMemberWhenCalledWithValidFilepath()
+        {
+            string filepath = @"EmptySample.csv";
+            CSVInput csvInput = new CSVInput(filepath);
+            Assert.Equal("EmptySample.csv", csvInput.filepath);
+        }
+        [Fact]
         public void TestExpectingCSVFileToBeReadWhenCalledWithFilePath()
         {
             string filepath = @"D:\a\DummyReviews\DummyReviews\SenderTests\TestSample.csv";
@@ -31,7 +38,14 @@ namespace SenderTests
             Console.WriteLine(testOutput[0][0]);
             Console.WriteLine("test");
         }
-
+        [Fact]
+        public void TestExpectingOutputToBeEmptyWhenCalledWithFilePathWhereFileIsEmpty()
+        {
+            string filepath = @"D:\a\DummyReviews\DummyReviews\SenderTests\EmptySample.csv";
+            CSVInput csvInput = new CSVInput(filepath);
+            List<List<string>> testOutput = (List<List<string>>)csvInput.ReadInput();
+            Assert.True(testOutput.Count==0);
+        }
         [Fact]
         public void TestExpectingExceptionWhenFileCouldNotBeFoundOrOpened()
         {
@@ -39,6 +53,12 @@ namespace SenderTests
             CSVInput csvInput = new CSVInput(filepath);
             Assert.Throws<FileNotFoundException>(() => csvInput.InputExceptionHandler());
         }
-        
+        [Fact]
+        public void TestExpectingNoExceptionWhenFileExists()
+        {
+            string filepath = @"D:\a\DummyReviews\DummyReviews\SenderTests\TestSample.csv";
+            CSVInput csvInput = new CSVInput(filepath);
+            Assert.False(csvInput.InputExceptionHandler());
+        }
     }
 }
