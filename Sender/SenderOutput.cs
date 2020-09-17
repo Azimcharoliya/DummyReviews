@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Sender
@@ -12,8 +12,10 @@ namespace Sender
     {
         public void WriteOutput(IEnumerable<IEnumerable<String>> data)
         {
-            int noofColumns = GetNumberofColumns(data);
-            Console.WriteLine(noofColumns);
+            int n_rows = GetNumberofRows(data);
+            int n_columns = GetNumberofColumns(data);
+            Console.WriteLine(n_rows);
+            Console.WriteLine(n_columns);
             foreach (IEnumerable<String> row in data)
             {
                 foreach (String value in row)
@@ -25,16 +27,25 @@ namespace Sender
 
         public static int GetNumberofColumns(IEnumerable<IEnumerable<String>> data)
         {
-            int count = 0;
+            int col_count = 0;
             foreach (IEnumerable<String> row in data)
             {
                 foreach (String value in row)
                 {
-                    count++;
+                    col_count++;
                 }
                 break;
             }
-            return count;
+            return col_count;
+        }
+        public static int GetNumberofRows(IEnumerable<IEnumerable<String>> data)
+        {
+            int row_count = 0;
+            foreach (IEnumerable<String> row in data)
+            {
+                row_count++;
+            }
+            return row_count;
         }
     }
 }
