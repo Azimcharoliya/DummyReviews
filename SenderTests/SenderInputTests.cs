@@ -24,7 +24,7 @@ namespace SenderTests
         [Fact]
         public void TestExpectingCSVFileToBeReadWhenCalledWithFilePath()
         {
-            string filepath = @"D:\a\ReviewOfReviews\ReviewOfReviews\SenderTests\TestSample.csv";
+            string filepath = @"D:\a\DummyReviews\DummyReviews\SenderTests\TestSample.csv";
             CSVInput csvInput = new CSVInput(filepath);
             List<List<string>> testOutput = (List<List<string>>)csvInput.ReadInput();
             Debug.Assert(testOutput[0][0] == "sampledata");
@@ -35,16 +35,10 @@ namespace SenderTests
         [Fact]
         public void TestExpectingExceptionWhenFileCouldNotBeFoundOrOpened()
         {
-            string filepath = @"D:\a\ReviewOfReviews\ReviewOfReviews\SenderTests\TestSample2.csv";
+            string filepath = @"D:\a\DummyReviews\DummyReviews\SenderTests\TestSample2.csv";
             CSVInput csvInput = new CSVInput(filepath);
             Assert.Throws<FileNotFoundException>(() => csvInput.InputExceptionHandler());
         }
-        [Fact]
-        public void TestExpectingNullArgumentExceptionWhenFileExistsButIsEmpty()
-        {
-            string filepath = @"D:\a\ReviewOfReviews\ReviewOfReviews\SenderTests\EmptySample.csv";
-            CSVInput csvInput = new CSVInput(filepath);
-            Assert.Throws<ArgumentNullException>(() => csvInput.InputExceptionHandler());
-        }
+        
     }
 }
