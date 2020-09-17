@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Sender
     public interface ISenderInput
     {
         IEnumerable<IEnumerable<string>> ReadInput();
-        void InputExceptionHandler();
+        bool InputExceptionHandler();
     }
 
     public class CSVInput : ISenderInput
@@ -20,22 +20,20 @@ namespace Sender
         {
             this.filepath = filepath;
         }
-        public void InputExceptionHandler()
+        public bool InputExceptionHandler()
         {
+            bool status = true;
             if (!File.Exists(filepath))
             {
                 throw new FileNotFoundException();
             }
-            if (new FileInfo(filepath).Length == 0)
-            {
-                throw new ArgumentNullException();
-            }
+            status = false;
+            return status;
 
         }
-        public static List<List<string>> csvData = new List<List<string>>();
+        public List<List<string>> csvData = new List<List<string>>();
         public IEnumerable<IEnumerable<string>> ReadInput()
         {
-            InputExceptionHandler();
             using (var reader = new StreamReader(filepath))
             {
 
@@ -54,3 +52,4 @@ namespace Sender
 
     }
 }
+
