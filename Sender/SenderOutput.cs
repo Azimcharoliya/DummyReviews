@@ -5,7 +5,7 @@ namespace Sender
 {
     public interface ISenderOutput
     {
-        void WriteOutput(IEnumerable<IEnumerable<String>> data);
+        public void WriteOutput(IEnumerable<IEnumerable<String>> data);
     }
 
     public class ConsoleOutput : ISenderOutput
